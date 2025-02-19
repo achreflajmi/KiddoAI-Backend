@@ -3,10 +3,10 @@ package com.example.kiddoai.Controller;
 import com.example.kiddoai.Entities.ChatRequest;
 import com.example.kiddoai.Services.ChatbotService;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/chat")
@@ -34,6 +34,19 @@ public class ChatController {
     @PostMapping("/welcome")
     public String welcoming(@RequestBody WelcomeRequest welcomeRequest) {
         return chatbotService.welcoming(welcomeRequest.getThreadId(), welcomeRequest.getIQCategory());
+    }
+
+
+    // Endpoint to transcribe audio
+    @PostMapping("/transcribe")
+    public String transcribeAudio(@RequestParam("audio") MultipartFile audioFile) {
+        try {
+            // Convert MultipartFile to byte[] (if needed by Flask backend)
+            byte[] audioData = audioFile.getBytes();
+            return chatbotService.transcribeAudio(audioData); // Send to service
+        } catch (Exception e) {
+            return "Error: " + e.getMessage();
+        }
     }
 
 }
