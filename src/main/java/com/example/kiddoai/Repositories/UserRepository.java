@@ -12,6 +12,7 @@ public interface UserRepository extends MongoRepository<User, String> {
 
     // Trouver un utilisateur par email
     Optional<User> findByEmail(String email);
+    User findByThreadId(String threadId);
 
     // Trouver un utilisateur par rôle
 }

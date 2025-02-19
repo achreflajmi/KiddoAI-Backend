@@ -85,7 +85,9 @@ public class AuthenticationService {
         response.put("id", user.getId());
         response.put("accessToken", accessToken);
         response.put("refreshToken", refreshToken);
+        response.put("threadId", user.getThreadId()); // Include threadId
 
         return response;
     }
+
 }
