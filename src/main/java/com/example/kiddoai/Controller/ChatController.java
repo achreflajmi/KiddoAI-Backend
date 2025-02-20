@@ -37,6 +37,7 @@ public class ChatController {
     }
 
 
+    // Endpoint to transcribe audio
     @PostMapping("/transcribe")
     public String transcribeAudio(@RequestParam("audio") MultipartFile audioFile) {
         try {
@@ -47,6 +48,5 @@ public class ChatController {
             return "Error: " + e.getMessage();
         }
     }
-
 
 }
