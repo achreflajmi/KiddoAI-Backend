@@ -21,11 +21,12 @@ public class Lesson {
     private Long id;
 
     private String name;
+    String description;
     private int score;
     private boolean IsLocked;
 
     private List<String> activitieIds;
 
-    private String subjectId;
+    private String subject;
 
 }
