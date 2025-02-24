@@ -21,10 +21,5 @@ public class UnicodeDecoder {
 
         return decodedString.toString();
     }
-
-    public static void main(String[] args) {
-        String transcription = "{\"text\": \"\\u0633\\u0644\\u0645\\u064A\\n\\u0645\\u062C\\u0648\\u062F\\n\"}";
-        String decodedText = decodeUnicode(transcription);
-        System.out.println(decodedText);  // Outputs: السلام عليكم
-    }
 }
+

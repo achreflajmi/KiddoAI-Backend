@@ -22,7 +22,7 @@ public class ChatbotService {
     private UserRepository userRepository;
 
     public ChatbotService(WebClient.Builder webClientBuilder) {
-        this.webClient = webClientBuilder.baseUrl("https://65ba-196-203-207-178.ngrok-free.app").build(); // Replace with your actual Python backend URL
+        this.webClient = webClientBuilder.baseUrl("https://5c01-196-203-12-186.ngrok-free.app").build(); // Replace with your actual Python backend URL
     }
 
     // Create a new thread for a user
@@ -59,8 +59,21 @@ public class ChatbotService {
         return "Welcome message sent with IQ category: " + IQCategory;
     }
 
-    // Decode the transcription response
-    public String transcribeAudio(byte[] audioData) {
+    // In your ChatbotService class, ensure you handle the transcription correctly:
+    public String transcribeAndChat(byte[] audioData, String threadId) {
+        // Step 1: Transcribe the audio to text
+        String transcriptionText = transcribeAudio(audioData);
+
+        // Step 2: Send the transcribed text to the chatbot as a message
+        if (transcriptionText != null && !transcriptionText.isEmpty()) {
+            return chatWithAssistant(threadId, transcriptionText); // Send transcribed text to chatbot
+        }
+
+        return "Failed to transcribe audio.";
+    }
+
+    // Transcribe audio into text
+    private String transcribeAudio(byte[] audioData) {
         MultipartBodyBuilder builder = new MultipartBodyBuilder();
         builder.part("audio", new ByteArrayResource(audioData))
                 .header("Content-Disposition", "form-data; name=\"audio\"; filename=\"audio.wav\"");
@@ -72,23 +85,23 @@ public class ChatbotService {
                 .retrieve()
                 .bodyToMono(String.class);
 
-        String response = transcriptionResponse.block();  // Block until response is received
-        return extractTextFromTranscription(response);  // Extract text from the transcription
+        String response = transcriptionResponse.block();
+        return extractTextFromTranscription(response);  // Return cleaned transcription
     }
 
-    // Extract and decode the text from transcription JSON response
+    // Extract and clean the transcription text from the response
     private String extractTextFromTranscription(String transcriptionResponse) {
+        // Ensure the transcription response is in a clean format
         JSONObject jsonResponse = new JSONObject(transcriptionResponse);
         String transcription = jsonResponse.getString("transcription");
 
-        // Clean up the transcription string
-        transcription = transcription.replaceAll("\\\\n", " "); // Replace newlines with spaces
-        transcription = transcription.replaceAll("\\\\", "");   // Remove escape backslashes
-        transcription = transcription.replaceAll("\\{\\n  \"text\" : \"", ""); // Remove unnecessary JSON structure
-        transcription = transcription.replaceAll("\"\\n}", ""); // Remove trailing JSON structures
+        // Clean up the transcription text
+        transcription = transcription.replaceAll("\\{\\n  \"text\" : \"", "");
+        transcription = transcription.replaceAll("\"\\n}", "");
+        transcription = transcription.replaceAll("\\\\n", " ");  // Convert '\n' to spaces
+        transcription = transcription.replaceAll("\\\\", "");     // Remove any escape characters
 
-        return transcription.trim(); // Return the cleaned text
+        return transcription.trim(); // Final cleaned transcription text
     }
-
 
 }
