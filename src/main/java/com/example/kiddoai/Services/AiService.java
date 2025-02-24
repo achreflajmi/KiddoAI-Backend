@@ -14,7 +14,7 @@ public class AiService {
     private final WebClient webClient;
 
     public AiService(WebClient.Builder webClientBuilder) {
-        this.webClient = webClientBuilder.baseUrl("https://6471-197-26-210-137.ngrok-free.app").build(); // Use localhost for testing
+        this.webClient = webClientBuilder.baseUrl("https://8602-197-29-231-221.ngrok-free.app").build(); // Use localhost for testing
     }
 
     public String generateHtml(String prompt) {
@@ -28,4 +28,5 @@ public class AiService {
         return htmlResponse.block(); // Blocking to get the response synchronously
 
     }
+
 }
