@@ -1,5 +1,6 @@
 package com.example.kiddoai.Services;
 
+import com.example.kiddoai.Config.UnicodeDecoder;
 import com.example.kiddoai.Entities.User;
 import com.example.kiddoai.Repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,7 @@ public class ChatbotService {
     private UserRepository userRepository;
 
     public ChatbotService(WebClient.Builder webClientBuilder) {
-        this.webClient = webClientBuilder.baseUrl("https://5c01-196-203-12-186.ngrok-free.app").build(); // Replace with your actual Python backend URL
+        this.webClient = webClientBuilder.baseUrl("https://0531-197-6-81-221.ngrok-free.app").build(); // Replace with your actual Python backend URL
     }
 
     // Create a new thread for a user
@@ -103,5 +104,20 @@ public class ChatbotService {
 
         return transcription.trim(); // Final cleaned transcription text
     }
+    public String teachLesson(String threadId, String lessonName, String subjectName) {
+        // Construct the dynamic message
+        String userInput = "كيدو، ممكن تشرح لي درس " + lessonName + " من مادة " + subjectName + " بطريقة مرحة وسهلة لفهمها" + ". and no need to write the special characters such as emojies and (*) . also no need to say بالطبع" + ". just start explaining directly , cause for the user it will not be a comunication it will be just a paraghrafph that a test to speech model will read to explain the lesson . also i need you to make the explaination of the lesson involve the data you've extracted about the persona of the kid that way he will undtrestand better";
+
+        // Send the message and get the response
+        String response = chatWithAssistant(threadId, userInput);
+
+        // Extract the response from the JSON (just the plain string part without JSON structure)
+        JSONObject jsonResponse = new JSONObject(response);
+        String assistantResponse = jsonResponse.getString("response");
+
+        // Decode the response from Unicode to Arabic text
+        return UnicodeDecoder.decodeUnicode(assistantResponse);
+    }
+
 
 }

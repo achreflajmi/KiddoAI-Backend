@@ -1,7 +1,5 @@
 package com.example.kiddoai.Config;
 
-import java.io.UnsupportedEncodingException;
-
 public class UnicodeDecoder {
 
     public static String decodeUnicode(String unicodeString) {
@@ -22,4 +20,3 @@ public class UnicodeDecoder {
         return decodedString.toString();
     }
 }
-

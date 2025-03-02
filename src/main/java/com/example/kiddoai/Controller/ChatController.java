@@ -1,7 +1,7 @@
 package com.example.kiddoai.Controller;
 
-import com.example.kiddoai.Config.UnicodeDecoder;
 import com.example.kiddoai.Entities.ChatRequest;
+import com.example.kiddoai.Entities.TeachLessonRequest;
 import com.example.kiddoai.Services.ChatbotService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -87,5 +87,14 @@ public class ChatController {
 
         // Return the path where the file is saved
         return audioFilePath.getAbsolutePath();
+    }
+    @Operation(
+            summary = "Teach a lesson to the assistant",
+            description = "Automatically sends a lesson teaching request to the assistant. The assistant will respond with an explanation."
+    )
+    @PostMapping("/teach_lesson")
+    public String teachLesson(@RequestBody TeachLessonRequest teachLessonRequest) {
+        // Call the teachLesson method with the provided parameters
+        return chatbotService.teachLesson(teachLessonRequest.getThreadId(), teachLessonRequest.getLessonName(), teachLessonRequest.getSubjectName());
     }
 }
