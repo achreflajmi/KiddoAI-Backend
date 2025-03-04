@@ -23,7 +23,7 @@ public class ChatbotService {
     private UserRepository userRepository;
 
     public ChatbotService(WebClient.Builder webClientBuilder) {
-        this.webClient = webClientBuilder.baseUrl("https://0531-197-6-81-221.ngrok-free.app").build(); // Replace with your actual Python backend URL
+        this.webClient = webClientBuilder.baseUrl("https://a992-102-152-209-38.ngrok-free.app").build(); // Replace with your actual Python backend URL
     }
 
     // Create a new thread for a user
@@ -47,8 +47,12 @@ public class ChatbotService {
                 .retrieve()
                 .bodyToMono(String.class);
 
-        return assistantResponse.block();  // Blocking call to wait for the response
+        // Block to get the actual response string
+        String response = assistantResponse.block();
+
+        return UnicodeDecoder.decodeUnicode(response);
     }
+
 
     // Send a welcoming message that includes IQ score without user consent
     public String welcoming(String threadId, String IQCategory) {

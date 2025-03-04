@@ -23,7 +23,7 @@ public class Activity {
     private int ScoreActivities;
     private int feedback;
     private boolean IsLocked;
-
+    private String problems;
     private String lessonid;
 
 
