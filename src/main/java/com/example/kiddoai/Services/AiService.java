@@ -28,5 +28,16 @@ public class AiService {
         return htmlResponse.block(); // Blocking to get the response synchronously
 
     }
+    public String generateProblems(String prompt) {
+        Mono<String> jsonResponse = webClient.post()
+                .uri("/problems")
+                .contentType(MediaType.APPLICATION_JSON)
+                .bodyValue(Map.of("prompt", prompt))
+                .retrieve()
+                .bodyToMono(String.class);
+
+        return jsonResponse.block(); // Blocking to get the response synchronously
+
+    }
 
 }

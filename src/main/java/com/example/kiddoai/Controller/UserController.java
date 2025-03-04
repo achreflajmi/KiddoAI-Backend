@@ -17,8 +17,9 @@ import java.util.Map;
 @RestController
 public class UserController {
     private final UserServiceImpl userService;
-@Autowired
-public UserRepository userRepository;
+    @Autowired
+    public UserRepository userRepository;
+
     public UserController(UserServiceImpl userService) {
         this.userService = userService;
     }
@@ -26,18 +27,16 @@ public UserRepository userRepository;
     @GetMapping("/me")
     public ResponseEntity<User> authenticatedUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
         User currentUser = (User) authentication.getPrincipal();
-
         return ResponseEntity.ok(currentUser);
     }
 
     @GetMapping("/")
     public ResponseEntity<List<User>> allUsers() {
-        List <User> users = userService.allUsers();
-
+        List<User> users = userService.allUsers();
         return ResponseEntity.ok(users);
     }
+
     @PutMapping("/updateIQCategory")
     public ResponseEntity<?> updateIQCategory(@RequestBody Map<String, String> requestData) {
         String threadId = requestData.get("threadId");
@@ -53,4 +52,25 @@ public UserRepository userRepository;
         }
     }
 
+    // New endpoint for updating user profile
+    @PutMapping("/updateProfile")
+    public ResponseEntity<?> updateProfile(@RequestBody User updatedUser) {
+        // Find user by threadId
+        User existingUser = userRepository.findByThreadId(updatedUser.getThreadId());
+        if (existingUser != null) {
+            // Update user details
+            existingUser.setNom(updatedUser.getNom());
+            existingUser.setPrenom(updatedUser.getPrenom());
+            existingUser.setDateNaissance(updatedUser.getDateNaissance());
+            existingUser.setEmail(updatedUser.getEmail());
+            existingUser.setIQCategory(updatedUser.getIQCategory());
+            existingUser.setFavoriteCharacter(updatedUser.getFavoriteCharacter());
+
+            // Save updated user
+            userRepository.save(existingUser);
+            return ResponseEntity.ok("Profile updated successfully!");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found!");
+        }
+    }
 }
