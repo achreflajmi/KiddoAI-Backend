@@ -2,6 +2,7 @@ package com.example.kiddoai.Controller;
 
 import com.example.kiddoai.Entities.ChatRequest;
 import com.example.kiddoai.Entities.TeachLessonRequest;
+import com.example.kiddoai.Services.AssistantCService;
 import com.example.kiddoai.Services.ChatbotService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -22,6 +23,8 @@ public class ChatController {
     @Autowired
     private ChatbotService chatbotService;
 
+    @Autowired
+    private AssistantCService assistantCService;
     // Endpoint to chat with the assistant
     @Operation(
             summary = "Chat with the AI Assistant",
@@ -29,8 +32,14 @@ public class ChatController {
     )
     @PostMapping("/send")
     public String chat(@RequestBody ChatRequest chatRequest) {
-        // Send the message and get the assistant's response
-        return chatbotService.chatWithAssistant(chatRequest.getThreadId(), chatRequest.getUserInput());
+        // 1) Send the child's message to your Kiddo backend
+        String rawResponse = chatbotService.chatWithAssistant(chatRequest.getThreadId(), chatRequest.getUserInput());
+
+        // 2) Also analyze the child's message via AssistantCService
+        assistantCService.analyzeChildMessage(chatRequest.getThreadId(), chatRequest.getUserInput());
+
+        // 3) Return the normal Kiddo response
+        return rawResponse;
     }
 
     // Endpoint to send a welcoming message automatically with the IQ score
