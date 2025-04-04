@@ -4,6 +4,7 @@
     import org.springframework.data.mongodb.core.mapping.Document;
     import org.springframework.security.core.GrantedAuthority;
     import org.springframework.security.core.userdetails.UserDetails;
+    import java.time.LocalDateTime;
 
     import java.util.Collection;
     import java.util.List;
@@ -22,6 +23,10 @@
         private float scoreTotal;
         private String favoriteCharacter;
         private String threadId;
+        private String parentPhoneNumber; // new field
+        private String lastProblemType; // e.g. "bullying", "danger", "none", etc.
+        private LocalDateTime lastProblemTimestamp; // Add this field
+
 
         // Constructeur par défaut
         public User() {}
@@ -122,6 +127,26 @@
             this.threadId = threadId;
         }
 
+        public String getParentPhoneNumber() {
+            return parentPhoneNumber;
+        }
+        public void setParentPhoneNumber(String parentPhoneNumber) {
+            this.parentPhoneNumber = parentPhoneNumber;
+        }
+        public String getLastProblemType() {
+            return lastProblemType;
+        }
+
+        public void setLastProblemType(String lastProblemType) {
+            this.lastProblemType = lastProblemType;
+        }
+        public LocalDateTime getLastProblemTimestamp() {
+            return lastProblemTimestamp;
+        }
+
+        public void setLastProblemTimestamp(LocalDateTime lastProblemTimestamp) {
+            this.lastProblemTimestamp = lastProblemTimestamp;
+        }
         // Méthode toString
         @Override
         public String toString() {

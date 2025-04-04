@@ -7,6 +7,7 @@ public class RegisterUserDto {
     private String email;
     private String password;
     private String favoriteCharacter;
+    private String parentPhoneNumber;
 
     // Constructors
     public RegisterUserDto() {}
@@ -69,6 +70,13 @@ public class RegisterUserDto {
 
     public void setFavoriteCharacter(String favoriteCharacter) {
         this.favoriteCharacter = favoriteCharacter;
+    }
+
+    public String getParentPhoneNumber() {
+        return parentPhoneNumber;
+    }
+    public void setParentPhoneNumber(String parentPhoneNumber) {
+        this.parentPhoneNumber = parentPhoneNumber;
     }
 
     @Override

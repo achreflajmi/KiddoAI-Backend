@@ -23,7 +23,7 @@ public class ChatbotService {
     private UserRepository userRepository;
 
     public ChatbotService(WebClient.Builder webClientBuilder) {
-        this.webClient = webClientBuilder.baseUrl("https://a992-102-152-209-38.ngrok-free.app").build(); // Replace with your actual Python backend URL
+        this.webClient = webClientBuilder.baseUrl("https://e4f4-102-155-56-141.ngrok-free.app").build(); // Replace with your actual Python backend URL
     }
 
     // Create a new thread for a user

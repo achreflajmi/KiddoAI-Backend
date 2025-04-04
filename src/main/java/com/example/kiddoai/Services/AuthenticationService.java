@@ -46,6 +46,7 @@ public class AuthenticationService {
         user.setPassword(passwordEncoder.encode(input.getPassword()));
         user.setScoreTotal(0.0f); // Default score
         user.setFavoriteCharacter(input.getFavoriteCharacter());
+        user.setParentPhoneNumber(input.getParentPhoneNumber()); // <— add this line
         user.setThreadId(chatbotService.createThread());
 
         userRepository.save(user);
@@ -63,6 +64,7 @@ public class AuthenticationService {
 
         return response;
     }
+
     public Map<String, Object> authenticate(LoginUserDto input) {
         // Authenticate the user
         authenticationManager.authenticate(
