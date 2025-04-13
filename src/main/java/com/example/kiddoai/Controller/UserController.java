@@ -1,6 +1,8 @@
 package com.example.kiddoai.Controller;
 
+import com.example.kiddoai.Entities.Subject;
 import com.example.kiddoai.Entities.User;
+import com.example.kiddoai.Repositories.SubjectRepository;
 import com.example.kiddoai.Repositories.UserRepository;
 import com.example.kiddoai.Services.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,8 @@ public class UserController {
     private final UserServiceImpl userService;
     @Autowired
     public UserRepository userRepository;
+    @Autowired
+    public SubjectRepository subjectRepo;
 
     public UserController(UserServiceImpl userService) {
         this.userService = userService;
@@ -72,5 +76,11 @@ public class UserController {
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found!");
         }
+    }
+    @GetMapping("/subjects")
+    public List<Subject> getSubjectsForKid() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = (User) auth.getPrincipal();
+        return subjectRepo.getSubjectsByClasseName(user.getClasse());
     }
 }

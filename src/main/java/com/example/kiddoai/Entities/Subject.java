@@ -18,6 +18,7 @@ public class Subject {
     private ObjectId id;
     private String name;
     private int AdvancementLevel;
+    private String classeName; // e.g. "1st Grade"
 
     private List<String> lessonIds;
 

@@ -26,7 +26,8 @@
         private String parentPhoneNumber; // new field
         private String lastProblemType; // e.g. "bullying", "danger", "none", etc.
         private LocalDateTime lastProblemTimestamp; // Add this field
-
+        private String classe; // e.g. "1st", "2nd", ..., "6th"
+        private Role role;
 
         // Constructeur par défaut
         public User() {}
@@ -52,10 +53,13 @@
             return id;
         }
 
+
+        public Role getRole() { return role; }
+        public void setRole(Role role) { this.role = role; }
+
         public void setId(String id) {
             this.id = id;
         }
-
         public String getNom() {
             return nom;
         }
@@ -90,6 +94,12 @@
 
         public String getPassword() {
             return password;
+        }
+        public String getClasse() {
+            return classe;
+        }
+        public void setClasse(String classe) {
+            this.classe = classe;
         }
 
         public void setPassword(String password) {
