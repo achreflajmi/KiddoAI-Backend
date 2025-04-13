@@ -1,5 +1,6 @@
 package com.example.kiddoai.Services;
 
+import com.example.kiddoai.Entities.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -36,8 +37,13 @@ public class JwtService {
     }
 
     public String generateToken(UserDetails userDetails) {
-        return generateToken(new HashMap<>(), userDetails);
+        User user = (User) userDetails; // cast to your custom User entity
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("role", user.getRole().name()); // .name() gives "ADMIN"
+        return generateToken(claims, userDetails);
     }
+
+
 
     public String generateToken(Map<String, Object> extraClaims, UserDetails userDetails) {
         return buildToken(extraClaims, userDetails, jwtExpiration);

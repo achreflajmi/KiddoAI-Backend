@@ -2,6 +2,7 @@ package com.example.kiddoai.Services;
 
 import com.example.kiddoai.Entities.LoginUserDto;
 import com.example.kiddoai.Entities.RegisterUserDto;
+import com.example.kiddoai.Entities.Role;
 import com.example.kiddoai.Entities.User;
 import com.example.kiddoai.Repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,6 +49,15 @@ public class AuthenticationService {
         user.setFavoriteCharacter(input.getFavoriteCharacter());
         user.setParentPhoneNumber(input.getParentPhoneNumber()); // <— add this line
         user.setThreadId(chatbotService.createThread());
+        user.setClasse(input.getClasse());
+        // Validate role or default to KID
+        String role = input.getRole();
+        if (role == null || (!role.equals("ADMIN") && !role.equals("KID"))) {
+            role = "KID";
+        }
+        user.setRole(Role.valueOf(role));
+
+
 
         userRepository.save(user);
 

@@ -8,6 +8,24 @@ public class RegisterUserDto {
     private String password;
     private String favoriteCharacter;
     private String parentPhoneNumber;
+    private String classe;
+    public String getClasse() {
+        return classe;
+    }
+    public void setClasse(String classe) {
+        this.classe = classe;
+    }
+    private String role; // ✅ ADD THIS LINE
+
+    // ✅ Add this getter
+    public String getRole() {
+        return role;
+    }
+
+    // ✅ Also add a setter (optional if you're using frameworks like Jackson)
+    public void setRole(String role) {
+        this.role = role;
+    }
 
     // Constructors
     public RegisterUserDto() {}
@@ -91,4 +109,6 @@ public class RegisterUserDto {
                 ", favoriteCharacter='" + favoriteCharacter + '\'' +
                 '}';
     }
+
+
 }
