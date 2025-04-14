@@ -1,6 +1,7 @@
 package com.example.kiddoai.Entities;
 
 import lombok.*;
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -15,16 +16,16 @@ import java.util.List;
 public class Activity {
 
     @Id
-    private Long id;
+    private ObjectId id;
 
     private String name;
     private String description;
-    private String code;
+    private double accuracy;
     private int ScoreActivities;
     private int feedback;
     private boolean IsLocked;
     private String problems;
-    private String lessonid;
+    private Long lessonid;
 
 
 }

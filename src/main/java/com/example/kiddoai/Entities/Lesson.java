@@ -19,15 +19,18 @@ import java.util.List;
 @Document(collection = "lesson")  // Collection name in MongoDB
 public class Lesson {
     @Id
-    private ObjectId id;
+    private Long id;
 
     private String name;
-    String description;
-    private int score;
+    private String description;
+    private int level;
     private boolean IsLocked;
 
     private List<String> activitieIds;
 
     private String subject;
 
+    public Long getId() {
+        return id;
+    }
 }
