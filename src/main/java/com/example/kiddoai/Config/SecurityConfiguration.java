@@ -43,6 +43,8 @@ public class SecurityConfiguration {
                 .cors(withDefaults())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/auth/**").permitAll()
+                        .requestMatchers("/Activity/**").permitAll()
+                        .requestMatchers("/game/**").permitAll()
                         .requestMatchers("/adminDashboard/**").hasRole("ADMIN")
                         .requestMatchers("/users/**").hasAnyRole("ADMIN", "KID")
                         .requestMatchers("/chat/**").hasAnyRole("ADMIN", "KID")
@@ -60,7 +62,8 @@ public class SecurityConfiguration {
         config.setAllowedOrigins(List.of(
                 "http://localhost:63176",
                 "http://localhost:56995",
-                "http://localhost:59603"   // Added the new origin here
+                "http://localhost:59603",
+                "http://172.20.10.13:8080"// Added the new origin here
         ));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("Authorization", "Content-Type"));
