@@ -2,7 +2,7 @@ package com.example.kiddoai.Services;
 
 import com.example.kiddoai.Entities.User;
 import com.example.kiddoai.Repositories.UserRepository;
-import org.springframework.beans.factory.annotation.Value;
+import io.github.cdimascio.dotenv.Dotenv;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +10,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
-
+import reactor.core.publisher.Mono;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 /**
@@ -21,10 +21,9 @@ import java.time.temporal.ChronoUnit;
 @Service
 public class AssistantCService {
 
-
+    Dotenv dotenv = Dotenv.load();
+    String OPENAI_API_KEY = dotenv.get("OPENAI_API_KEY");
     // Put your real OpenAI API key here
-    @Value("${OPENAI_API_KEY}")
-    private String OPENAI_API_KEY;
 
     // The system instructions you previously had in your custom assistant.
     // We place them directly in the 'system' message now.
