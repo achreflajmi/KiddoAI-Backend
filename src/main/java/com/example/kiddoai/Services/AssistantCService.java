@@ -2,6 +2,7 @@ package com.example.kiddoai.Services;
 
 import com.example.kiddoai.Entities.User;
 import com.example.kiddoai.Repositories.UserRepository;
+import org.springframework.beans.factory.annotation.Value;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,9 +21,10 @@ import java.time.temporal.ChronoUnit;
 @Service
 public class AssistantCService {
 
-    // Put your real OpenAI API key here
-    private static final String OPENAI_API_KEY = System.getenv("OPENAI_API_KEY");
 
+    // Put your real OpenAI API key here
+    @Value("${OPENAI_API_KEY}")
+    private String OPENAI_API_KEY;
 
     // The system instructions you previously had in your custom assistant.
     // We place them directly in the 'system' message now.

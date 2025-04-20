@@ -2,17 +2,19 @@ version: '3.8'
 
 services:
   backend:
-    image: achreflajmi/kiddoai-backend
+    build: .
     container_name: kiddoai_backend
     ports:
       - "8081:8081"
     env_file:
       - .env
     depends_on:
-      - flask_model
+      - flask_ai_model
 
-  flask_model:
+  flask_ai_model:
     image: azizgaaya/aziz_pim:latest
     container_name: flask_ai_model
     ports:
-      - "5009:5000"
+      - "5009:5009"
+    env_file:
+      - ./flask_env/.env
