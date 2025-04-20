@@ -20,7 +20,7 @@ public class AiService {
 
 
     public AiService(WebClient.Builder webClientBuilder, ActivityRepository activityRepository) {
-        this.webClient = webClientBuilder.baseUrl("https://be8b-196-229-153-148.ngrok-free.app").build(); // Use localhost for testing
+        this.webClient = webClientBuilder.baseUrl("https://4305-102-152-215-66.ngrok-free.app").build(); // Use localhost for testing
         this.activityRepository = activityRepository;
     }
 
