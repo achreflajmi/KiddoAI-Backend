@@ -9,7 +9,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
-import reactor.core.publisher.Mono;
+
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 /**
@@ -22,6 +22,7 @@ public class AssistantCService {
 
     // Put your real OpenAI API key here
     private static final String OPENAI_API_KEY = System.getenv("OPENAI_API_KEY");
+
 
     // The system instructions you previously had in your custom assistant.
     // We place them directly in the 'system' message now.
