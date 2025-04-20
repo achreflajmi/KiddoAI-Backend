@@ -1,9 +1,7 @@
 package com.example.kiddoai.Services;
 
-import com.example.kiddoai.Entities.LoginUserDto;
-import com.example.kiddoai.Entities.RegisterUserDto;
-import com.example.kiddoai.Entities.Role;
-import com.example.kiddoai.Entities.User;
+import com.example.kiddoai.Entities.*;
+import com.example.kiddoai.Repositories.ClasseRepository;
 import com.example.kiddoai.Repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -18,6 +16,8 @@ import java.util.Map;
 public class AuthenticationService {
     @Autowired
     private final UserRepository userRepository;
+    @Autowired
+    private final ClasseRepository classeRepository;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
     private final JwtService jwtService;
@@ -25,11 +25,12 @@ public class AuthenticationService {
     private ChatbotService chatbotService;
 
     public AuthenticationService(
-            UserRepository userRepository,
+            UserRepository userRepository, ClasseRepository classeRepository,
             AuthenticationManager authenticationManager,
             PasswordEncoder passwordEncoder,
             JwtService jwtService
     ) {
+        this.classeRepository = classeRepository;
         this.authenticationManager = authenticationManager;
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
@@ -71,6 +72,7 @@ public class AuthenticationService {
         response.put("accessToken", accessToken);
         response.put("refreshToken", refreshToken);
         response.put("threadId", user.getThreadId());
+        //response.put("VectorStoreId", classeRepository.findByName(user.getClasse()).getClass());
 
         return response;
     }
@@ -98,8 +100,30 @@ public class AuthenticationService {
         response.put("accessToken", accessToken);
         response.put("refreshToken", refreshToken);
         response.put("threadId", user.getThreadId()); // Include threadId
+        response.put("vectorStoreId", getVectorStoreIdForClasse(user.getClasse()));
+
 
         return response;
+    }
+
+     /* -----------------------------------------------------------
+       PRIVATE HELPERS
+       ----------------------------------------------------------- */
+    /**
+     * Retrieves the Classe document by its name and returns the
+     * associated vectorStoreId.
+     *
+     * @throws IllegalStateException if the class does not exist
+     *                               or does not have a vectorStoreId.
+     */
+    private String getVectorStoreIdForClasse(String classeName) {
+        return classeRepository.findByName(classeName)
+                .map(Classe::getVectorStoreId)
+                .filter(id -> id != null && !id.isBlank())
+                .orElseThrow(() ->
+                        new IllegalStateException(
+                                "No vector store configured for classe '" + classeName + "'.")
+                );
     }
 
 }

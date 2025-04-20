@@ -72,7 +72,7 @@ public class UserController {
 
             // Save updated user
             userRepository.save(existingUser);
-            return ResponseEntity.ok("Profile updated successfully!");
+            return ResponseEntity.ok("Profile updated successfullyy!");
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found!");
         }

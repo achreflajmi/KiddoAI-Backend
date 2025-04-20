@@ -1,5 +1,6 @@
 package com.example.kiddoai.Repositories;
 
+import com.example.kiddoai.Entities.Classe;
 import com.example.kiddoai.Entities.Subject;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;

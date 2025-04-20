@@ -35,6 +35,12 @@
             <artifactId>twilio</artifactId>
             <version>10.1.0</version> <!-- Use the latest version available -->
         </dependency>
+        <dependency>
+            <groupId>io.github.cdimascio</groupId>
+            <artifactId>java-dotenv</artifactId>
+            <version>5.2.2</version>
+        </dependency>
+
         <!-- For PostConstruct annotation -->
         <dependency>
             <groupId>javax.annotation</groupId>
