@@ -44,8 +44,7 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/auth/**").permitAll()
                         .requestMatchers("/Activity/**").permitAll()
-                        .requestMatchers("/game/**").permitAll()
-                        .requestMatchers("/adminDashboard/**").hasRole("ADMIN")
+                        .requestMatchers("/adminDashboard/**").hasAnyRole("ADMIN", "KID")
                         .requestMatchers("/users/**").hasAnyRole("ADMIN", "KID")
                         .requestMatchers("/chat/**").hasAnyRole("ADMIN", "KID")
                         .anyRequest().authenticated()

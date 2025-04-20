@@ -26,6 +26,7 @@
         private String parentPhoneNumber; // new field
         private String lastProblemType; // e.g. "bullying", "danger", "none", etc.
         private LocalDateTime lastProblemTimestamp; // Add this field
+
         private String classe; // e.g. "1st", "2nd", ..., "6th"
         private Role role;
 
