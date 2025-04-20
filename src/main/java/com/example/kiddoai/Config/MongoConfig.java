@@ -1,3 +1,4 @@
+
 package com.example.kiddoai.Config;
 
 import io.github.cdimascio.dotenv.Dotenv;
@@ -12,8 +13,8 @@ public class MongoConfig {
 
     @Bean
     public MongoTemplate mongoTemplate() {
-        String uri = System.getenv("MONGODB_URI");
-
+        Dotenv dotenv = Dotenv.load();
+        String uri = dotenv.get("MONGODB_URI");
         return new MongoTemplate(MongoClients.create(uri), "KiddoAI");
     }
 }
