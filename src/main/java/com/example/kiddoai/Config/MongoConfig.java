@@ -12,8 +12,8 @@ public class MongoConfig {
 
     @Bean
     public MongoTemplate mongoTemplate() {
-        Dotenv dotenv = Dotenv.load();
-        String uri = dotenv.get("MONGODB_URI");
+        String uri = System.getenv("MONGODB_URI");
+
         return new MongoTemplate(MongoClients.create(uri), "KiddoAI");
     }
 }

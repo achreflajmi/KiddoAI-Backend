@@ -12,6 +12,8 @@ public class TwilioService {
 
     private static final String ACCOUNT_SID = System.getenv("TWILIO_ACCOUNT_SID");
     private static final String AUTH_TOKEN = System.getenv("TWILIO_AUTH_TOKEN");
+
+
     private static final String TWILIO_NUMBER = "+12184605358";
 
     @PostConstruct
