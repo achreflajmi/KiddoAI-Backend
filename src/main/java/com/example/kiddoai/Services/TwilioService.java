@@ -3,6 +3,7 @@ package com.example.kiddoai.Services;
 import com.twilio.Twilio;
 import com.twilio.rest.api.v2010.account.Message;
 import com.twilio.type.PhoneNumber;
+import io.github.cdimascio.dotenv.Dotenv;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
@@ -10,9 +11,14 @@ import javax.annotation.PostConstruct;
 @Service
 public class TwilioService {
 
-    private static final String ACCOUNT_SID = System.getenv("TWILIO_ACCOUNT_SID");
-    private static final String AUTH_TOKEN = System.getenv("TWILIO_AUTH_TOKEN");
-    private static final String TWILIO_NUMBER = "+12184605358";
+    Dotenv dotenv = Dotenv.load();
+    String ACCOUNT_SID = dotenv.get("TWILIO_ACCOUNT_SID");
+    String AUTH_TOKEN = dotenv.get("TWILIO_AUTH_TOKEN");
+
+    String TWILIO_NUMBER = dotenv.get("12184605358");
+
+
+
 
     @PostConstruct
     public void initTwilio() {
