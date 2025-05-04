@@ -61,7 +61,7 @@ public class SecurityConfiguration {
         config.setAllowedOrigins(List.of(
                 "http://localhost:63176",
                 "http://localhost:56995",
-                "http://localhost:59603",
+                "http://localhost:55973",
                 "http://172.20.10.13:8080"// Added the new origin here
         ));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));

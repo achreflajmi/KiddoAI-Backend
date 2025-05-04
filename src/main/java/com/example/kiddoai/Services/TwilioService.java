@@ -15,7 +15,7 @@ public class TwilioService {
     String ACCOUNT_SID = dotenv.get("TWILIO_ACCOUNT_SID");
     String AUTH_TOKEN = dotenv.get("TWILIO_AUTH_TOKEN");
 
-    String TWILIO_NUMBER = dotenv.get("12184605358");
+    String TWILIO_NUMBER = "+12184605358";
 
 
 

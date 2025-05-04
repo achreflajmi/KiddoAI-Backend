@@ -26,6 +26,7 @@ public class Activity {
     private boolean IsLocked;
     private String problems;
     private Long lessonid;
+    private String userId;
 
 
 }
