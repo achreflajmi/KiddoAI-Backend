@@ -42,20 +42,20 @@ public class ActivityController {
         }
     }
 
-    @GetMapping("/problems")
-    public String getLatestActivityProblems() {
+    @GetMapping("/problems/{userId}")
+    public String getActivityProblemsByUserId(@PathVariable String userId) {
         // Fetch the Activity with the highest ID
-        Optional<Activity> latestActivityOptional = activityRepository.findTopByOrderByIdDesc();
+        Optional<Activity> latestActivityOptional = activityRepository.findTopByUserIdOrderByIdDesc(userId);
 
         // Check if an Activity was found and if it has problems
         // Using Optional's map and orElse for concise handling
         return latestActivityOptional
                 .map(Activity::getProblems) // Extract the 'problems' field if activity exists
                 .filter(problems -> problems != null && !problems.trim().isEmpty()) // Ensure problems are not null or just whitespace
-                .orElse("Problems not found");
+                .orElse("Problems not found with userId: " + userId);
     }
 
-    public static class ProblemRequestDto {
+    /* public static class ProblemRequestDto {
         private String lesson;
         private String subject;
         private String level;
@@ -73,6 +73,25 @@ public class ActivityController {
                     ", level='" + level + '\'' +
                     '}';
         }
+    }*/
+
+    public static class ProblemRequestDto {
+        private String lesson;
+        private String problemsList;
+        private String id;
+        // Getters (needed for deserialization)
+        public String getLesson() { return lesson; }
+        public String getProblemsList() { return problemsList; }
+        public String getId() { return id; }
+
+        @Override
+        public String toString() {
+            return "ProblemRequestDto{" +
+                    "lesson='" + lesson + '\'' +
+                    ", problemsList='" + problemsList + '\'' +
+                    ", id='" + id + '\'' +
+                    '}';
+        }
     }
 
 
@@ -80,17 +99,17 @@ public class ActivityController {
     @PostMapping("/saveProblem") // Or keep /saveProblem if you prefer
     public String createActivityWithProblems(@RequestBody ProblemRequestDto requestDto) {
         // 1. Generate problems using the AI service
-        String generatedProblems = aiService.generateProblems(
+      /*  String generatedProblems = aiService.generateProblems(
                 requestDto.getLesson(),
                 requestDto.getSubject(),
                 requestDto.getLevel()
-        );
+        );*/
 
         Activity newActivity = new Activity();
         // Lesson lesson = ;
         newActivity.setLessonid(lessonRepository.findLessonByName(requestDto.getLesson()).getId());
-        newActivity.setProblems(generatedProblems); // Store the generated problems
-
+        newActivity.setProblems(requestDto.problemsList); // Store the generated problems
+        newActivity.setUserId(requestDto.getId());
         // 4. Save the new Activity to the database
         Activity savedActivity = activityRepository.save(newActivity);
 

@@ -1,7 +1,6 @@
 package com.example.kiddoai.Repositories;
 
 import com.example.kiddoai.Entities.Activity;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.data.mongodb.repository.Update;
@@ -24,4 +23,6 @@ public interface ActivityRepository extends MongoRepository<Activity, String> {
 
     @Query("{ 'lessonId': ?0 }")
     List<Activity> findTop5ByLessonIdOrderByCreatedAtDesc(String lessonId, org.springframework.data.domain.Sort sort);
+
+    Optional<Activity> findTopByUserIdOrderByIdDesc(String attr0);
 }

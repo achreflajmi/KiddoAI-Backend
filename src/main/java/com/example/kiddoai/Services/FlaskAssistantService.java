@@ -19,7 +19,7 @@ public class FlaskAssistantService {
     @Autowired
     public FlaskAssistantService(WebClient.Builder webClientBuilder) {
         this.webClient = webClientBuilder
-                .baseUrl("https://454d-197-2-189-134.ngrok-free.app") // or your ngrok URL
+                .baseUrl("https://9d35-197-240-182-135.ngrok-free.app") // or your ngrok URL
                 .build();
     }
 
