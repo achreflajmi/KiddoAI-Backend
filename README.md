@@ -167,9 +167,12 @@ TWILIO_AUTH_TOKEN=...
 |---|---|---|
 | `server.port` | `8081` | HTTP port |
 | `server.servlet.context-path` | `/KiddoAI` | Base path for all endpoints |
-| `security.jwt.secret-key` | — | HMAC secret for signing JWTs |
+| `security.jwt.secret-key` | `${JWT_SECRET_KEY}` | HMAC secret for signing JWTs, read from the `JWT_SECRET_KEY` environment variable |
 | `security.jwt.expiration-time` | `3600000` | Access token lifetime (1 h) |
 | `security.jwt.refresh-expiration-time` | `604800000` | Refresh token lifetime (7 days) |
+
+> **JWT secret**
+> Set the `JWT_SECRET_KEY` environment variable to a Base64 key of at least 256 bits before starting the app. You can generate one with `openssl rand -base64 32`.
 
 > **Note**
 > The Python AI service URL is currently set in `AiService`, `ChatbotService`, and `FlaskAssistantService`. Update it to point to your own AI service (for example, your local Flask server or ngrok tunnel).
